@@ -8,7 +8,7 @@
 
 #import "DHVector.h"
 // 单位向量长度
-#define UNIT_LENGTH 1
+#define IDENTITY_LENGTH 1
 static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSystemKey";
 
 @implementation DHVector
@@ -26,12 +26,13 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 - (DHVectorCoordinateSystem)coordinateSystem
 {
+    
     return [[[NSUserDefaults standardUserDefaults] objectForKey:kDHVectorCoordinateSystemKey] integerValue];
 }
 
-- (instancetype)initAsUnitVectorWithAngleToXPositiveAxis:(CGFloat)radian
+- (instancetype)initAsIdentityVectorWithAngleToXPositiveAxis:(CGFloat)radian
 {
-    self = [DHVector xPositiveUnitVector];
+    self = [DHVector xPositiveIdentityVector];
     [self rotateClockwiselyWithRadian:radian];
     return self;
 }
@@ -86,7 +87,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 - (CGFloat)angleOfXAxisPositiveVector
 {
-    return [self angleOfOtherVector:[DHVector xPositiveUnitVector]];
+    return [self angleOfOtherVector:[DHVector xPositiveIdentityVector]];
 }
 
 - (CGPoint)coordinateExpression
@@ -302,27 +303,27 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 #pragma mark - 特殊向量
 
-+ (DHVector *)xPositiveUnitVector
++ (DHVector *)xPositiveIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(UNIT_LENGTH, 0)];
+    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(IDENTITY_LENGTH, 0)];
     return vector;
 }
 
-+ (DHVector *)xNegativeUnitVector
++ (DHVector *)xNegativeIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(-UNIT_LENGTH, 0)];
+    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(-IDENTITY_LENGTH, 0)];
     return vector;
 }
 
-+ (DHVector *)yPositiveUnitVector
++ (DHVector *)yPositiveIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(0, UNIT_LENGTH)];
+    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(0, IDENTITY_LENGTH)];
     return vector;
 }
 
-+ (DHVector *)yNegativeUnitVector
++ (DHVector *)yNegativeIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(0, -UNIT_LENGTH)];
+    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(0, -IDENTITY_LENGTH)];
     return vector;
 }
 

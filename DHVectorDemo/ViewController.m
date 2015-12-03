@@ -17,11 +17,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     [DHVector setVectorCoordinateSystem:DHVectorCoordinateSystemUIKit];
     
     DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(100, 100)];
+    vector = [[DHVector alloc] initAsIdentityVectorWithAngleToXPositiveAxis:M_PI/4];
+    [vector multipliedByNumber:100*sqrt(2)];
     DHVector * aVector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(80, 0)];
     
     [aVector translationToPoint:CGPointMake(100, 100)];
@@ -34,6 +37,10 @@
     resultVector.lineWidth = 2;
     resultVector.lineColor = [UIColor blackColor];
     [resultVector drawOnView:self.view];
+    
+    if ([[DHVector aVector:resultVector substractedByOtherVector:vector] isEqualToVector:aVector]) {
+        NSLog(@"加减法的实现没有问题！");
+    }
     
     vector.lineColor = [UIColor redColor];
     vector.lineWidth = 2;

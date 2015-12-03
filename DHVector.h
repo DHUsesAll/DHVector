@@ -10,11 +10,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, DHVectorCoordinateSystem) {
-    
     DHVectorCoordinateSystemUIKit,  // 默认
     DHVectorCoordinateSystemOpenGL,
-    
-    
 };
 
 // 平面向量
@@ -49,7 +46,7 @@ typedef NS_ENUM(NSUInteger, DHVectorCoordinateSystem) {
  *
  *  @return 单位向量
  */
-- (instancetype)initAsUnitVectorWithAngleToXPositiveAxis:(CGFloat)radian;
+- (instancetype)initAsIdentityVectorWithAngleToXPositiveAxis:(CGFloat)radian;
 
 /**
  *  用一个CGPoint作为坐标表达式初始化一个向量，该向量起点在(0,0)点
@@ -254,28 +251,28 @@ typedef NS_ENUM(NSUInteger, DHVectorCoordinateSystem) {
  *
  *  @return x轴正方向的单位向量
  */
-+ (DHVector *)xPositiveUnitVector;
++ (DHVector *)xPositiveIdentityVector;
 
 /**
  *  x轴负方向的单位向量
  *
  *  @return x轴负方向的单位向量
  */
-+ (DHVector *)xNegativeUnitVector;
++ (DHVector *)xNegativeIdentityVector;
 
 /**
  *  y轴正方向的单位向量
  *
  *  @return y轴正方向的单位向量
  */
-+ (DHVector *)yPositiveUnitVector;
++ (DHVector *)yPositiveIdentityVector;
 
 /**
  *  y轴负方向的单位向量
  *
  *  @return y轴负方向的单位向量
  */
-+ (DHVector *)yNegativeUnitVector;
++ (DHVector *)yNegativeIdentityVector;
 
 /**
  *  零向量
