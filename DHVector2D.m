@@ -6,12 +6,12 @@
 //  Copyright (c) 2014年 DreamHack. All rights reserved.
 //
 
-#import "DHVector.h"
+#import "DHVector2D.h"
 // 单位向量长度
 #define IDENTITY_LENGTH 1
 static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSystemKey";
 
-@implementation DHVector
+@implementation DHVector2D
 
 + (void)initialize
 {
@@ -32,7 +32,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 - (instancetype)initAsIdentityVectorWithAngleToXPositiveAxis:(CGFloat)radian
 {
-    self = [DHVector xPositiveIdentityVector];
+    self = [DHVector2D xPositiveIdentityVector];
     [self rotateClockwiselyWithRadian:radian];
     return self;
 }
@@ -52,9 +52,9 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
     return self;
 }
 
-+ (instancetype)vectorWithVector:(DHVector *)vector
++ (instancetype)vectorWithVector:(DHVector2D *)vector
 {
-    DHVector * aVector = [[DHVector alloc] initWithStartPoint:vector.startPoint endPoint:vector.endPoint];
+    DHVector2D * aVector = [[DHVector2D alloc] initWithStartPoint:vector.startPoint endPoint:vector.endPoint];
     
     return aVector;
 }
@@ -66,7 +66,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 @end
 
-@implementation DHVector (VectorDescriptions)
+@implementation DHVector2D (VectorDescriptions)
 
 - (CGFloat)length
 {
@@ -78,7 +78,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
     [self multipliedByNumber:length/self.length];
 }
 
-- (CGFloat)angleOfOtherVector:(DHVector *)oVector
+- (CGFloat)angleOfOtherVector:(DHVector2D *)oVector
 {
     // 通过向量点积的几何意义反解向量夹角
     CGFloat cos = [self dotProductedByOtherVector:oVector] / ([self length] * [oVector length]);
@@ -87,7 +87,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 - (CGFloat)angleOfXAxisPositiveVector
 {
-    return [self angleOfOtherVector:[DHVector xPositiveIdentityVector]];
+    return [self angleOfOtherVector:[DHVector2D xPositiveIdentityVector]];
 }
 
 - (CGPoint)coordinateExpression
@@ -100,7 +100,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
     return p;
 }
 
-- (BOOL)isEqualToVector:(DHVector *)aVector
+- (BOOL)isEqualToVector:(DHVector2D *)aVector
 {
     CGPoint selfExpression = [self coordinateExpression];
     CGPoint expression = [aVector coordinateExpression];
@@ -111,14 +111,14 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 #pragma mark - 到角
 
 // 顺时针到角 = 另一个向量到该向量的逆时针到角
-- (CGFloat)clockwiseAngleToVector:(DHVector *)vector
+- (CGFloat)clockwiseAngleToVector:(DHVector2D *)vector
 {
     return [vector antiClockwiseAngleToVector:self];
 }
 
 // 如果另一个向量在这个向量的逆时针方向上（夹角小于PI），则到角 = 夹角
 // 若不是，则到角 = 2PI - 夹角
-- (CGFloat)antiClockwiseAngleToVector:(DHVector *)vector
+- (CGFloat)antiClockwiseAngleToVector:(DHVector2D *)vector
 {
     // 判断是否在逆时针方向上
     // 首先如果它们的夹角是PI，则直接返回
@@ -132,7 +132,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
     
     CGFloat angle = [self angleOfOtherVector:vector];
     
-    DHVector * tempVector = [DHVector vectorWithVector:self];
+    DHVector2D * tempVector = [DHVector2D vectorWithVector:self];
     [tempVector rotateAntiClockwiselyWithRadian:0.01/180.f*M_PI];
     if ([tempVector angleOfOtherVector:vector] < angle) {
         return angle;
@@ -144,11 +144,11 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 @end
 
 #pragma mark - 向量运算
-@implementation DHVector (VectorArithmetic)
+@implementation DHVector2D (VectorArithmetic)
 // 类方法返回的向量起始点为坐标原点
 
 // 加法
-- (void)plusByOtherVector:(DHVector *)vector
+- (void)plusByOtherVector:(DHVector2D *)vector
 {
     CGPoint tp = _startPoint;
     [self translationToPoint:CGPointMake(0, 0)];
@@ -157,19 +157,19 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
     [self translationToPoint:tp];
 }
 
-+ (DHVector *)aVector:(DHVector *)aVector plusByOtherVector:(DHVector *)oVector
++ (DHVector2D *)aVector:(DHVector2D *)aVector plusByOtherVector:(DHVector2D *)oVector
 {
     CGPoint p1 = [aVector coordinateExpression];
     CGPoint p2 = [oVector coordinateExpression];
     
-    DHVector * vector = [[DHVector alloc] initWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(p1.x+p2.x, p1.y+p2.y)];
+    DHVector2D * vector = [[DHVector2D alloc] initWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(p1.x+p2.x, p1.y+p2.y)];
     
     return vector;
 }
 
 // 减法
 // 本向量被另一个向量减：self - vector
-- (void)substractedByOtherVector:(DHVector *)vector
+- (void)substractedByOtherVector:(DHVector2D *)vector
 {
     CGPoint tp = _startPoint;
     [self translationToPoint:CGPointMake(0, 0)];
@@ -179,12 +179,12 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 }
 
 
-+ (DHVector *)aVector:(DHVector *)aVector substractedByOtherVector:(DHVector *)oVector
++ (DHVector2D *)aVector:(DHVector2D *)aVector substractedByOtherVector:(DHVector2D *)oVector
 {
     CGPoint p1 = [aVector coordinateExpression];
     CGPoint p2 = [oVector coordinateExpression];
     
-    DHVector * vector = [[DHVector alloc] initWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(p1.x-p2.x, p1.y-p2.y)];
+    DHVector2D * vector = [[DHVector2D alloc] initWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(p1.x-p2.x, p1.y-p2.y)];
     
     return vector;
 }
@@ -199,13 +199,13 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
     [self translationToPoint:startPoint];
 }
 
-+ (DHVector *)aVector:(DHVector *)aVector multipliedByNumber:(CGFloat)number
++ (DHVector2D *)aVector:(DHVector2D *)aVector multipliedByNumber:(CGFloat)number
 {
     CGPoint tp = aVector.startPoint;
     [aVector translationToPoint:CGPointMake(0, 0)];
     CGPoint p = CGPointMake(aVector.endPoint.x * number, aVector.endPoint.y * number);
     
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:p];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:p];
     
     [aVector translationToPoint:tp];
     
@@ -213,12 +213,12 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 }
 
 // 数量积（点积）
-- (CGFloat)dotProductedByOtherVector:(DHVector *)vector
+- (CGFloat)dotProductedByOtherVector:(DHVector2D *)vector
 {
-    return [DHVector aVector:self dotProductedByOtherVector:vector];
+    return [DHVector2D aVector:self dotProductedByOtherVector:vector];
 }
 
-+ (CGFloat)aVector:(DHVector *)aVector dotProductedByOtherVector:(DHVector *)oVector
++ (CGFloat)aVector:(DHVector2D *)aVector dotProductedByOtherVector:(DHVector2D *)oVector
 {
     CGPoint p = [aVector coordinateExpression];
     CGPoint op = [oVector coordinateExpression];
@@ -227,7 +227,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 @end
 
-@implementation DHVector (VectorOperations)
+@implementation DHVector2D (VectorOperations)
 
 #pragma mark - 平移
 // 将起始点平移至某个点
@@ -299,37 +299,37 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 @end
 
 
-@implementation DHVector (SpecialVectors)
+@implementation DHVector2D (SpecialVectors)
 
 #pragma mark - 特殊向量
 
-+ (DHVector *)xPositiveIdentityVector
++ (DHVector2D *)xPositiveIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(IDENTITY_LENGTH, 0)];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointMake(IDENTITY_LENGTH, 0)];
     return vector;
 }
 
-+ (DHVector *)xNegativeIdentityVector
++ (DHVector2D *)xNegativeIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(-IDENTITY_LENGTH, 0)];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointMake(-IDENTITY_LENGTH, 0)];
     return vector;
 }
 
-+ (DHVector *)yPositiveIdentityVector
++ (DHVector2D *)yPositiveIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(0, IDENTITY_LENGTH)];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointMake(0, IDENTITY_LENGTH)];
     return vector;
 }
 
-+ (DHVector *)yNegativeIdentityVector
++ (DHVector2D *)yNegativeIdentityVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(0, -IDENTITY_LENGTH)];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointMake(0, -IDENTITY_LENGTH)];
     return vector;
 }
 
-+ (DHVector *)zeroVector
++ (DHVector2D *)zeroVector
 {
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointZero];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointZero];
     
     return vector;
 }
@@ -340,7 +340,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 
 #pragma mark - 坐标转换
 
-@implementation DHVector (CoordinateSystemConverting)
+@implementation DHVector2D (CoordinateSystemConverting)
 
 + (CGPoint)openGLPointFromUIKitPoint:(CGPoint)point referenceHeight:(CGFloat)height
 {
@@ -364,7 +364,7 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 @end
 
 #import <objc/runtime.h>
-@implementation DHVector (DrawVector)
+@implementation DHVector2D (DrawVector)
 
 static const void * kDHVectorLineWidthKey = &kDHVectorLineWidthKey;
 static const void * kDHVectorLineColorKey = &kDHVectorLineColorKey;

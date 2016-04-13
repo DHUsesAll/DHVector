@@ -14,7 +14,7 @@
 		E597B23E1C03187900CAF9C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E597B23D1C03187900CAF9C6 /* Images.xcassets */; };
 		E597B2411C03187900CAF9C6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E597B23F1C03187900CAF9C6 /* LaunchScreen.xib */; };
 		E597B24D1C03187900CAF9C6 /* DHVectorDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E597B24C1C03187900CAF9C6 /* DHVectorDemoTests.m */; };
-		E597B2641C037C1500CAF9C6 /* DHVector.m in Sources */ = {isa = PBXBuildFile; fileRef = E597B2631C037C1500CAF9C6 /* DHVector.m */; };
+		E597B2641C037C1500CAF9C6 /* DHVector2D.m in Sources */ = {isa = PBXBuildFile; fileRef = E597B2631C037C1500CAF9C6 /* DHVector2D.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +41,8 @@
 		E597B2461C03187900CAF9C6 /* DHVectorDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DHVectorDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E597B24B1C03187900CAF9C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E597B24C1C03187900CAF9C6 /* DHVectorDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DHVectorDemoTests.m; sourceTree = "<group>"; };
-		E597B2621C037C1500CAF9C6 /* DHVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHVector.h; sourceTree = "<group>"; };
-		E597B2631C037C1500CAF9C6 /* DHVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHVector.m; sourceTree = "<group>"; };
+		E597B2621C037C1500CAF9C6 /* DHVector2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHVector2D.h; sourceTree = "<group>"; };
+		E597B2631C037C1500CAF9C6 /* DHVector2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHVector2D.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +66,8 @@
 		E597B2241C03187900CAF9C6 = {
 			isa = PBXGroup;
 			children = (
-				E597B2621C037C1500CAF9C6 /* DHVector.h */,
-				E597B2631C037C1500CAF9C6 /* DHVector.m */,
+				E597B2621C037C1500CAF9C6 /* DHVector2D.h */,
+				E597B2631C037C1500CAF9C6 /* DHVector2D.m */,
 				E597B22F1C03187900CAF9C6 /* DHVectorDemo */,
 				E597B2491C03187900CAF9C6 /* DHVectorDemoTests */,
 				E597B22E1C03187900CAF9C6 /* Products */,
@@ -225,7 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E597B2391C03187900CAF9C6 /* ViewController.m in Sources */,
-				E597B2641C037C1500CAF9C6 /* DHVector.m in Sources */,
+				E597B2641C037C1500CAF9C6 /* DHVector2D.m in Sources */,
 				E597B2361C03187900CAF9C6 /* AppDelegate.m in Sources */,
 				E597B2331C03187900CAF9C6 /* main.m in Sources */,
 			);
@@ -418,6 +418,7 @@
 				E597B2521C03187900CAF9C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E597B2531C03187900CAF9C6 /* Build configuration list for PBXNativeTarget "DHVectorDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +427,7 @@
 				E597B2551C03187900CAF9C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

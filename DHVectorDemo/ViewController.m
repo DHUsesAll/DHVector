@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "DHVector.h"
+#import "DHVector2D.h"
 
 @interface ViewController ()
 
@@ -20,12 +20,12 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [DHVector setVectorCoordinateSystem:DHVectorCoordinateSystemUIKit];
+    [DHVector2D setVectorCoordinateSystem:DHVectorCoordinateSystemUIKit];
     
-    DHVector * vector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(100, 100)];
-    vector = [[DHVector alloc] initAsIdentityVectorWithAngleToXPositiveAxis:M_PI/4];
+    DHVector2D * vector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointMake(100, 100)];
+    vector = [[DHVector2D alloc] initAsIdentityVectorWithAngleToXPositiveAxis:M_PI/4];
     [vector multipliedByNumber:100*sqrt(2)];
-    DHVector * aVector = [[DHVector alloc] initWithCoordinateExpression:CGPointMake(80, 0)];
+    DHVector2D * aVector = [[DHVector2D alloc] initWithCoordinateExpression:CGPointMake(80, 0)];
     
     [aVector translationToPoint:CGPointMake(100, 100)];
     
@@ -33,12 +33,12 @@
     
     [aVector rotateClockwiselyWithRadian:M_PI/8];
     
-    DHVector * resultVector = [DHVector aVector:vector plusByOtherVector:aVector];
+    DHVector2D * resultVector = [DHVector2D aVector:vector plusByOtherVector:aVector];
     resultVector.lineWidth = 2;
     resultVector.lineColor = [UIColor blackColor];
     [resultVector drawOnView:self.view];
     
-    if ([[DHVector aVector:resultVector substractedByOtherVector:vector] isEqualToVector:aVector]) {
+    if ([[DHVector2D aVector:resultVector substractedByOtherVector:vector] isEqualToVector:aVector]) {
         NSLog(@"加减法的实现没有问题！");
     }
     
