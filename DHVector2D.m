@@ -82,6 +82,12 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
 {
     // 通过向量点积的几何意义反解向量夹角
     CGFloat cos = [self dotProductedByOtherVector:oVector] / ([self length] * [oVector length]);
+    if (cos > 1) {
+        cos = 1;
+    }
+    if (cos < -1) {
+        cos = -1;
+    }
     return acos(cos);
 }
 
@@ -127,6 +133,10 @@ static NSString * const kDHVectorCoordinateSystemKey = @"kDHVectorCoordinateSyst
         return M_PI;
     }
     
+    // 如果它们两个向量相等，则返回0
+    if ([self isEqualToVector:vector]) {
+        return 0;
+    }
     
     // 然后，将该向量延逆时针方向旋转一度，如果它们的夹角减小，则是在逆时针方向
     
